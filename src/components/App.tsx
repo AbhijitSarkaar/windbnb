@@ -1,14 +1,21 @@
 import React from 'react';
-import { foo } from './index';
+import Brand from './Brand';
+import SearchBar from './SearchBar';
 import styled from 'styled-components';
 
 const App = () => {
-    console.log('foo', foo);
-    return <Container data-testId="app">App</Container>;
+    return (
+        <Container data-testId="app">
+            <Brand></Brand>
+            <SearchBar></SearchBar>
+        </Container>
+    );
 };
 
 const Container = styled.div`
-    font-size: 20px;
+    padding: 0px 12px;
+    @media only screen and (min-width: 415px) {
+    }
 `;
 
 export default App;

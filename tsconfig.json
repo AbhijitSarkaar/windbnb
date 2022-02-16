@@ -3,5 +3,6 @@
         "jsx": "react",
         "esModuleInterop": true
     },
+    "include": ["src", "interface.d.ts"],
     "exclude": ["node_modules", "dist", "config"]
 }
