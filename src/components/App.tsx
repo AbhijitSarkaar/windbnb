@@ -4,11 +4,10 @@ import styled from 'styled-components';
 
 const App = () => {
     console.log('foo', foo);
-    return <Container data-testId="app">App container </Container>;
+    return <Container data-testId="app">App</Container>;
 };
 
 const Container = styled.div`
-    background: blue;
     font-size: 20px;
 `;
 
