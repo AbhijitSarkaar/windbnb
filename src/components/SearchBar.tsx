@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBar = () => {
     return (
         <SearchBarContainer>
             <Search>
-                <Location></Location>
-                <Guests></Guests>
-                <SearchIcon></SearchIcon>
+                <Location>Add location </Location>
+                <Guests>Add guests</Guests>
+                <SearchIcon>
+                    <FontAwesomeIcon icon={faSearch} />
+                </SearchIcon>
             </Search>
         </SearchBarContainer>
     );
@@ -15,7 +19,6 @@ const SearchBar = () => {
 
 const SearchBarContainer = styled.div`
     padding: 40px 28px;
-    border: 1px solid black;
 `;
 
 const Search = styled.div`
@@ -25,14 +28,25 @@ const Search = styled.div`
     border-radius: 16px;
     display: grid;
     grid-template-columns: 3.5fr 3fr 1.5fr;
+    color: #bdbdbd;
+    font-size: 14px;
+
+    > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid #f2f2f2;
+    }
+
+    :last-child {
+        border-right: none;
+    }
 `;
 
-const Location = styled.div`
-    border-right: 1px solid #f2f2f2;
+const Location = styled.div``;
+const Guests = styled.div``;
+const SearchIcon = styled.div`
+    color: #eb5757;
 `;
-const Guests = styled.div`
-    border-right: 1px solid #f2f2f2;
-`;
-const SearchIcon = styled.div``;
 
 export default SearchBar;
