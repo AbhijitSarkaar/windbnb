@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faClose,
@@ -11,6 +11,26 @@ import styled from 'styled-components';
 
 const SearchModal = (props) => {
     const { handleModal } = props;
+    const [currentTab, setCurrentTab] = useState('location');
+    const [adultsCount, setAdultsCount] = useState(0);
+    const [childrenCount, setChildrenCount] = useState(0);
+    const handleSubtract = (ageGroup: string) => {
+        if (ageGroup === 'adult') {
+            setAdultsCount(Math.max(0, adultsCount - 1));
+        } else if (ageGroup === 'children') {
+            setChildrenCount(Math.max(0, childrenCount - 1));
+        }
+    };
+    const handleAdd = (ageGroup: string) => {
+        if (ageGroup === 'adult') {
+            setAdultsCount(adultsCount + 1);
+        } else if (ageGroup === 'children') {
+            setChildrenCount(childrenCount + 1);
+        }
+    };
+
+    const guestsCount = adultsCount + childrenCount;
+
     return (
         <SearchModalContainer>
             <SearchModalContainerRel>
@@ -21,37 +41,50 @@ const SearchModal = (props) => {
                     </Icon>
                 </Header>
                 <SearchAttributes>
-                    <Location>
+                    <Location onClick={() => setCurrentTab('location')}>
                         <Title>LOCATION</Title>
                         <Value>Add location</Value>
                     </Location>
-                    <Guests>
+                    <Guests onClick={() => setCurrentTab('guests')}>
                         <Title>GUESTS</Title>
-                        <Value>Add guests</Value>
+                        <Value>
+                            {guestsCount || 'Add'} guest
+                            {guestsCount !== 1 && 's'}
+                        </Value>
                     </Guests>
                 </SearchAttributes>
                 <SearchAttrValues>
-                    {/* <LocationContainer>
-                    {locations.map((location) => (
-                        <LocationRow>
-                            <FontAwesomeIcon icon={faLocationDot} />
-                            {location}
-                        </LocationRow>
-                    ))}
-                </LocationContainer> */}
-                    <GuestsContainer>
-                        <GuestCount
-                            title={'Adults'}
-                            description={'Ages 13 or above'}
-                            count={0}
-                        ></GuestCount>
+                    {currentTab === 'location' && (
+                        <LocationContainer>
+                            {locations.map((location) => (
+                                <LocationRow key={location}>
+                                    <FontAwesomeIcon icon={faLocationDot} />
+                                    {location}
+                                </LocationRow>
+                            ))}
+                        </LocationContainer>
+                    )}
+                    {currentTab === 'guests' && (
+                        <GuestsContainer>
+                            <GuestCount
+                                title={'Adults'}
+                                description={'Ages 13 or above'}
+                                ageGroup={'adult'}
+                                count={adultsCount}
+                                handleAdd={handleAdd}
+                                handleSubtract={handleSubtract}
+                            ></GuestCount>
 
-                        <GuestCount
-                            title={'Children'}
-                            description={'Ages 2 - 12'}
-                            count={0}
-                        ></GuestCount>
-                    </GuestsContainer>
+                            <GuestCount
+                                title={'Children'}
+                                description={'Ages 2 - 12'}
+                                ageGroup={'children'}
+                                count={childrenCount}
+                                handleAdd={handleAdd}
+                                handleSubtract={handleSubtract}
+                            ></GuestCount>
+                        </GuestsContainer>
+                    )}
                 </SearchAttrValues>
                 <Footer>
                     <SearchButton>

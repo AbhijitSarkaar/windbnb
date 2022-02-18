@@ -2,15 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const GuestCount = (props) => {
-    const { title, description, count } = props;
+    const { title, description, ageGroup, count, handleAdd, handleSubtract } =
+        props;
     return (
         <GuestsContainer>
             <Title>{title}</Title>
             <Description>{description}</Description>
             <CountContainer>
-                <Box>-</Box>
+                <Box onClick={() => handleSubtract(ageGroup)}>-</Box>
                 <Count>{count}</Count>
-                <Box>+</Box>
+                <Box onClick={() => handleAdd(ageGroup)}>+</Box>
             </CountContainer>
         </GuestsContainer>
     );
