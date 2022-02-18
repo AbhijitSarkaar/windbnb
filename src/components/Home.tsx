@@ -3,11 +3,12 @@ import Brand from './Brand';
 import SearchBar from './SearchBar';
 import styled from 'styled-components';
 
-const Home = () => {
+const Home = (props) => {
+    const { handleModal } = props;
     return (
         <HomeContainer>
             <Brand></Brand>
-            <SearchBar></SearchBar>
+            <SearchBar handleModal={handleModal}></SearchBar>
         </HomeContainer>
     );
 };

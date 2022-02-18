@@ -3,14 +3,12 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const SearchBar = () => {
-    const handleSearchbarClick = () => {
-        console.log('open modal');
-    };
+const SearchBar = (props) => {
+    const { handleModal } = props;
 
     return (
         <SearchBarContainer data-testid="search-container">
-            <Search onClick={handleSearchbarClick}>
+            <Search onClick={handleModal}>
                 <Location data-testid="location">Add location </Location>
                 <Guests data-testid="guests">Add guests</Guests>
                 <SearchIcon data-testid="search-icon">

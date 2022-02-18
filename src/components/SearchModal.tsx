@@ -9,14 +9,15 @@ import GuestCount from './GuestCount';
 import { locations } from '../constants/SearchModal.constants';
 import styled from 'styled-components';
 
-const SearchModal = () => {
+const SearchModal = (props) => {
+    const { handleModal } = props;
     return (
         <SearchModalContainer>
             <SearchModalContainerRel>
                 <Header>
                     <Text>Edit your search</Text>
                     <Icon>
-                        <FontAwesomeIcon icon={faClose} />
+                        <FontAwesomeIcon icon={faClose} onClick={handleModal} />
                     </Icon>
                 </Header>
                 <SearchAttributes>
@@ -65,7 +66,7 @@ const SearchModal = () => {
 
 const SearchModalContainer = styled.div`
     position: absolute;
-    width: 100%;
+    width: 99%;
     background: white;
     top: 0;
     box-sizing: border-box;

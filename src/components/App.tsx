@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Home from './Home';
 import styled from 'styled-components';
 import SearchModal from './SearchModal';
 
 const App = () => {
+    const [modal, setModal] = useState(false);
+    const handleModal = (status: boolean) => {
+        setModal(status);
+    };
     return (
         <Container data-testid="app">
-            <Home></Home>
-            <SearchModal></SearchModal>
+            {modal ? (
+                <SearchModal
+                    handleModal={() => handleModal(false)}
+                ></SearchModal>
+            ) : (
+                <Home handleModal={() => handleModal(true)}></Home>
+            )}
         </Container>
     );
 };
