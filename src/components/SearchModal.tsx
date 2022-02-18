@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faClose,
@@ -6,35 +6,76 @@ import {
     faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import GuestCount from './GuestCount';
-import { locations } from '../constants/SearchModal.constants';
+import {
+    locations,
+    SET_ADULTS_COUNT,
+    SET_CHILDREN_COUNT,
+    SET_LOCATION,
+    SET_CURRENT_TAB,
+} from '../constants/SearchModal.constants';
 import styled from 'styled-components';
+
+const initialState = {
+    currentTab: 'location',
+    location: '',
+    adultsCount: 0,
+    childrenCount: 0,
+};
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case SET_CURRENT_TAB:
+            return {
+                ...state,
+                currentTab: action.value,
+            };
+        case SET_LOCATION:
+            return {
+                ...state,
+                location: action.value,
+                currentTab: '',
+            };
+        case SET_ADULTS_COUNT:
+            return { ...state, adultsCount: action.value };
+        case SET_CHILDREN_COUNT:
+            return { ...state, childrenCount: action.value };
+        default:
+            return initialState;
+    }
+};
 
 const SearchModal = (props) => {
     const { handleModal } = props;
-    const [currentTab, setCurrentTab] = useState('location');
-    const [location, setLocation] = useState('');
-    const [adultsCount, setAdultsCount] = useState(0);
-    const [childrenCount, setChildrenCount] = useState(0);
+    const [state, dispatch] = useReducer(reducer, initialState);
+
     const handleSubtract = (ageGroup: string) => {
         if (ageGroup === 'adult') {
-            setAdultsCount(Math.max(0, adultsCount - 1));
+            dispatch({
+                type: SET_ADULTS_COUNT,
+                value: Math.max(0, state.adultsCount - 1),
+            });
         } else if (ageGroup === 'children') {
-            setChildrenCount(Math.max(0, childrenCount - 1));
+            dispatch({
+                type: SET_CHILDREN_COUNT,
+                value: Math.max(0, state.childrenCount - 1),
+            });
         }
     };
     const handleAdd = (ageGroup: string) => {
         if (ageGroup === 'adult') {
-            setAdultsCount(adultsCount + 1);
+            dispatch({
+                type: SET_ADULTS_COUNT,
+                value: state.adultsCount + 1,
+            });
         } else if (ageGroup === 'children') {
-            setChildrenCount(childrenCount + 1);
+            dispatch({
+                type: SET_CHILDREN_COUNT,
+                value: state.childrenCount + 1,
+            });
         }
     };
-    const handleLocationClick = (value: string) => {
-        setLocation(value);
-        setCurrentTab('');
-    };
 
-    const guestsCount = adultsCount + childrenCount;
+    const guestsCount = state.adultsCount + state.childrenCount;
 
     return (
         <SearchModalContainer>
@@ -46,28 +87,45 @@ const SearchModal = (props) => {
                     </Icon>
                 </Header>
                 <SearchAttributes>
-                    <Location onClick={() => setCurrentTab('location')}>
+                    <Location
+                        onClick={() =>
+                            dispatch({
+                                type: SET_CURRENT_TAB,
+                                value: 'location',
+                            })
+                        }
+                    >
                         <Title>LOCATION</Title>
-                        <Value color={location && 'black'}>
-                            {location ? location : 'Add location'}
+                        <Value color={state.location && 'black'}>
+                            {state.location ? state.location : 'Add location'}
                         </Value>
                     </Location>
-                    <Guests onClick={() => setCurrentTab('guests')}>
+                    <Guests
+                        onClick={() =>
+                            dispatch({
+                                type: SET_CURRENT_TAB,
+                                value: 'guests',
+                            })
+                        }
+                    >
                         <Title>GUESTS</Title>
-                        <Value>
+                        <Value color={guestsCount && 'black'}>
                             {guestsCount || 'Add'} guest
                             {guestsCount !== 1 && 's'}
                         </Value>
                     </Guests>
                 </SearchAttributes>
                 <SearchAttrValues>
-                    {currentTab === 'location' && (
+                    {state.currentTab === 'location' && (
                         <LocationContainer>
                             {locations.map((location) => (
                                 <LocationRow
                                     key={location}
                                     onClick={() =>
-                                        handleLocationClick(location)
+                                        dispatch({
+                                            type: SET_LOCATION,
+                                            value: location,
+                                        })
                                     }
                                 >
                                     <FontAwesomeIcon icon={faLocationDot} />
@@ -76,13 +134,13 @@ const SearchModal = (props) => {
                             ))}
                         </LocationContainer>
                     )}
-                    {currentTab === 'guests' && (
+                    {state.currentTab === 'guests' && (
                         <GuestsContainer>
                             <GuestCount
                                 title={'Adults'}
                                 description={'Ages 13 or above'}
                                 ageGroup={'adult'}
-                                count={adultsCount}
+                                count={state.adultsCount}
                                 handleAdd={handleAdd}
                                 handleSubtract={handleSubtract}
                             ></GuestCount>
@@ -91,7 +149,7 @@ const SearchModal = (props) => {
                                 title={'Children'}
                                 description={'Ages 2 - 12'}
                                 ageGroup={'children'}
-                                count={childrenCount}
+                                count={state.childrenCount}
                                 handleAdd={handleAdd}
                                 handleSubtract={handleSubtract}
                             ></GuestCount>
@@ -101,7 +159,7 @@ const SearchModal = (props) => {
                 <Footer>
                     <SearchButton>
                         <FontAwesomeIcon icon={faSearch} />
-                        <SearchText>Search</SearchText>
+                        <SearchText onClick={handleModal}>Search</SearchText>
                     </SearchButton>
                 </Footer>
             </SearchModalContainerRel>
