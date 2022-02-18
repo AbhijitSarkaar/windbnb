@@ -31,6 +31,7 @@ const SearchModal = (props) => {
     };
     const handleLocationClick = (value: string) => {
         setLocation(value);
+        setCurrentTab('');
     };
 
     const guestsCount = adultsCount + childrenCount;
