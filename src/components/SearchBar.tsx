@@ -4,12 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBar = () => {
+    const handleSearchbarClick = () => {
+        console.log('open modal');
+    };
+
     return (
-        <SearchBarContainer>
-            <Search>
-                <Location>Add location </Location>
-                <Guests>Add guests</Guests>
-                <SearchIcon>
+        <SearchBarContainer data-testid="search-container">
+            <Search onClick={handleSearchbarClick}>
+                <Location data-testid="location">Add location </Location>
+                <Guests data-testid="guests">Add guests</Guests>
+                <SearchIcon data-testid="search-icon">
                     <FontAwesomeIcon icon={faSearch} />
                 </SearchIcon>
             </Search>

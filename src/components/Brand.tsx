@@ -10,9 +10,7 @@ const Brand = () => {
     );
 };
 
-const BrandContainer = styled.div`
-    margin-top: 22px;
-`;
+const BrandContainer = styled.div``;
 
 const Image = styled.img``;
 

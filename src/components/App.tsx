@@ -1,19 +1,19 @@
 import React from 'react';
-import Brand from './Brand';
-import SearchBar from './SearchBar';
+import Home from './Home';
 import styled from 'styled-components';
+import SearchModal from './SearchModal';
 
 const App = () => {
     return (
-        <Container data-testId="app">
-            <Brand></Brand>
-            <SearchBar></SearchBar>
+        <Container data-testid="app">
+            <Home></Home>
+            <SearchModal></SearchModal>
         </Container>
     );
 };
 
 const Container = styled.div`
-    padding: 0px 12px;
+    position: relative;
     @media only screen and (min-width: 415px) {
     }
 `;
