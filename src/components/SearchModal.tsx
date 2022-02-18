@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { locations } from '../constants/SearchModal.constants';
 import styled from 'styled-components';
 
 const SearchModal = () => {
@@ -22,6 +23,17 @@ const SearchModal = () => {
                     <Value>Add guests</Value>
                 </Guests>
             </SearchAttributes>
+            <SearchAttrValues>
+                <LocationContainer>
+                    {locations.map((location) => (
+                        <LocationRow>
+                            <FontAwesomeIcon icon={faLocationDot} />
+                            {location}
+                        </LocationRow>
+                    ))}
+                </LocationContainer>
+                <GuestsContainer></GuestsContainer>
+            </SearchAttrValues>
         </SearchModalContainer>
     );
 };
@@ -74,6 +86,21 @@ const Value = styled.div`
     line-height: 18px;
     color: #bdbdbd;
     margin-top: 6px;
+`;
+
+const SearchAttrValues = styled.div``;
+const LocationContainer = styled.div`
+    margin-top: 36px;
+    padding-left: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+`;
+const GuestsContainer = styled.div``;
+
+const LocationRow = styled.div`
+    display: flex;
+    gap: 10px;
 `;
 
 export default SearchModal;
