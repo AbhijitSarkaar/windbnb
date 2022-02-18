@@ -19,7 +19,7 @@ const Home = (props) => {
             <SearchResultsContainer>
                 {data.map((item) => {
                     return (
-                        <ResultItem>
+                        <ResultItem key={item.title}>
                             <RoomImage src={item.photo}></RoomImage>
                             <RoomProperties>
                                 {item.superHost && (

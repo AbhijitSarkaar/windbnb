@@ -9,7 +9,7 @@ const App = () => {
         setModal(status);
     };
     return (
-        <Container data-testid="app">
+        <Container data-testid="app" overflow={modal ? 'hidden' : 'visible'}>
             {modal && (
                 <SearchModal
                     handleModal={() => handleModal(false)}
@@ -20,11 +20,11 @@ const App = () => {
     );
 };
 
-const Container = styled.div`
-    height: 100%;
-    position: relative;
-    @media only screen and (min-width: 415px) {
-    }
-`;
-
+const Container = styled.div(function (props: { overflow: string }) {
+    return {
+        position: 'relative',
+        height: '100%',
+        overflow: props.overflow,
+    };
+});
 export default App;
