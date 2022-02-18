@@ -12,6 +12,7 @@ import styled from 'styled-components';
 const SearchModal = (props) => {
     const { handleModal } = props;
     const [currentTab, setCurrentTab] = useState('location');
+    const [location, setLocation] = useState('');
     const [adultsCount, setAdultsCount] = useState(0);
     const [childrenCount, setChildrenCount] = useState(0);
     const handleSubtract = (ageGroup: string) => {
@@ -28,6 +29,9 @@ const SearchModal = (props) => {
             setChildrenCount(childrenCount + 1);
         }
     };
+    const handleLocationClick = (value: string) => {
+        setLocation(value);
+    };
 
     const guestsCount = adultsCount + childrenCount;
 
@@ -43,7 +47,9 @@ const SearchModal = (props) => {
                 <SearchAttributes>
                     <Location onClick={() => setCurrentTab('location')}>
                         <Title>LOCATION</Title>
-                        <Value>Add location</Value>
+                        <Value color={location && 'black'}>
+                            {location ? location : 'Add location'}
+                        </Value>
                     </Location>
                     <Guests onClick={() => setCurrentTab('guests')}>
                         <Title>GUESTS</Title>
@@ -57,7 +63,12 @@ const SearchModal = (props) => {
                     {currentTab === 'location' && (
                         <LocationContainer>
                             {locations.map((location) => (
-                                <LocationRow key={location}>
+                                <LocationRow
+                                    key={location}
+                                    onClick={() =>
+                                        handleLocationClick(location)
+                                    }
+                                >
                                     <FontAwesomeIcon icon={faLocationDot} />
                                     {location}
                                 </LocationRow>
@@ -145,13 +156,14 @@ const Title = styled.div`
     ilne-height: 12px;
     font-weight: 800;
 `;
-const Value = styled.div`
-    font-size: 14px;
-    line-height: 18px;
-    color: #bdbdbd;
-    margin-top: 6px;
-`;
-
+const Value = styled.div(function (props) {
+    return {
+        fontSize: '14px',
+        lineHeight: '18px',
+        color: props.color ? props.color : '#bdbdbd',
+        marginTop: '6px',
+    };
+});
 const SearchAttrValues = styled.div``;
 const LocationContainer = styled.div`
     margin-top: 36px;
