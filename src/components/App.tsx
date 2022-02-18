@@ -13,6 +13,7 @@ const App = () => {
 };
 
 const Container = styled.div`
+    height: 100%;
     position: relative;
     @media only screen and (min-width: 415px) {
     }

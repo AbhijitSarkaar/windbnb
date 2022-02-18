@@ -1,6 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import {
+    faClose,
+    faLocationDot,
+    faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 import GuestCount from './GuestCount';
 import { locations } from '../constants/SearchModal.constants';
 import styled from 'styled-components';
@@ -8,24 +12,25 @@ import styled from 'styled-components';
 const SearchModal = () => {
     return (
         <SearchModalContainer>
-            <Header>
-                <Text>Edit your search</Text>
-                <Icon>
-                    <FontAwesomeIcon icon={faClose} />
-                </Icon>
-            </Header>
-            <SearchAttributes>
-                <Location>
-                    <Title>LOCATION</Title>
-                    <Value>Add location</Value>
-                </Location>
-                <Guests>
-                    <Title>GUESTS</Title>
-                    <Value>Add guests</Value>
-                </Guests>
-            </SearchAttributes>
-            <SearchAttrValues>
-                {/* <LocationContainer>
+            <SearchModalContainerRel>
+                <Header>
+                    <Text>Edit your search</Text>
+                    <Icon>
+                        <FontAwesomeIcon icon={faClose} />
+                    </Icon>
+                </Header>
+                <SearchAttributes>
+                    <Location>
+                        <Title>LOCATION</Title>
+                        <Value>Add location</Value>
+                    </Location>
+                    <Guests>
+                        <Title>GUESTS</Title>
+                        <Value>Add guests</Value>
+                    </Guests>
+                </SearchAttributes>
+                <SearchAttrValues>
+                    {/* <LocationContainer>
                     {locations.map((location) => (
                         <LocationRow>
                             <FontAwesomeIcon icon={faLocationDot} />
@@ -33,20 +38,27 @@ const SearchModal = () => {
                         </LocationRow>
                     ))}
                 </LocationContainer> */}
-                <GuestsContainer>
-                    <GuestCount
-                        title={'Adults'}
-                        description={'Ages 13 or above'}
-                        count={0}
-                    ></GuestCount>
+                    <GuestsContainer>
+                        <GuestCount
+                            title={'Adults'}
+                            description={'Ages 13 or above'}
+                            count={0}
+                        ></GuestCount>
 
-                    <GuestCount
-                        title={'Children'}
-                        description={'Ages 2 - 12'}
-                        count={0}
-                    ></GuestCount>
-                </GuestsContainer>
-            </SearchAttrValues>
+                        <GuestCount
+                            title={'Children'}
+                            description={'Ages 2 - 12'}
+                            count={0}
+                        ></GuestCount>
+                    </GuestsContainer>
+                </SearchAttrValues>
+                <Footer>
+                    <SearchButton>
+                        <FontAwesomeIcon icon={faSearch} />
+                        <SearchText>Search</SearchText>
+                    </SearchButton>
+                </Footer>
+            </SearchModalContainerRel>
         </SearchModalContainer>
     );
 };
@@ -58,6 +70,11 @@ const SearchModalContainer = styled.div`
     top: 0;
     box-sizing: border-box;
     padding: 12px;
+    height: 80%;
+`;
+
+const SearchModalContainerRel = styled.div`
+    height: 100%;
 `;
 
 const Header = styled.div`
@@ -110,6 +127,27 @@ const LocationContainer = styled.div`
     gap: 36px;
 `;
 const GuestsContainer = styled.div``;
+const Footer = styled.div`
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+`;
+const SearchButton = styled.div`
+    height: 48px;
+    width: 126px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 11px;
+    font-size: 14px;
+    background: rgba(235, 87, 87, 0.9);
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    color: white;
+`;
+const SearchText = styled.div``;
 
 const LocationRow = styled.div`
     display: flex;
