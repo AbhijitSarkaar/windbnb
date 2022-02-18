@@ -10,13 +10,12 @@ const App = () => {
     };
     return (
         <Container data-testid="app">
-            {modal ? (
+            {modal && (
                 <SearchModal
                     handleModal={() => handleModal(false)}
                 ></SearchModal>
-            ) : (
-                <Home handleModal={() => handleModal(true)}></Home>
             )}
+            <Home handleModal={() => handleModal(true)}></Home>
         </Container>
     );
 };

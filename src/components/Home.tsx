@@ -25,7 +25,10 @@ const Home = (props) => {
                                 {item.superHost && (
                                     <SuperHost>SUPER HOST</SuperHost>
                                 )}
-                                <RoomDesc>{item.type}</RoomDesc>
+                                <RoomDesc>
+                                    {item.type}
+                                    {item.beds && `. ${item.beds} bed`}
+                                </RoomDesc>
                                 <Rating>
                                     <FontAwesomeIcon
                                         icon={faStar}
@@ -75,10 +78,9 @@ const RoomImage = styled.img`
     border-radius: 24px;
 `;
 const RoomProperties = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 4fr 1fr;
-    margin-top: 14px;
+    display: flex;
     align-items: center;
+    margin-top: 14px;
 `;
 const SuperHost = styled.span`
     font-size: 10px;
@@ -90,18 +92,19 @@ const SuperHost = styled.span`
     justify-content: center;
     font-weight: 700;
     line-height: 1;
-    padding-top: 6.2px;
-    padding-bottom: 5px;
+    padding: 6.2px 8px 5px 8px;
+    margin-right: 10px;
 `;
 const RoomDesc = styled.div`
+    display: flex;
     font-size: 12px;
     color: #828282;
-    padding-left: 10px;
 `;
 const Rating = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-left: auto;
 `;
 const RatingText = styled.div`
     font-size: 12px;
