@@ -234,7 +234,7 @@ const LocationContainer = styled.div`
 const GuestsContainer = styled.div``;
 const Footer = styled.div`
     position: absolute;
-    bottom: 0;
+    bottom: 24px;
     width: 100%;
     display: flex;
     justify-content: center;
