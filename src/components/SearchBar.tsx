@@ -21,6 +21,10 @@ const SearchBar = (props) => {
 
 const SearchBarContainer = styled.div`
     padding: 40px 28px;
+    @media only screen and (min-width: 500px) {
+        width: 20%;
+        padding: 0px 28px;
+    }
 `;
 
 const Search = styled.div`
@@ -47,6 +51,10 @@ const Search = styled.div`
     @media only screen and (min-width: 500px) {
         > * {
             cursor: pointer;
+        }
+        :hover {
+            border: 1px solid lightgray;
+            box-sizing: border-box;
         }
     }
 `;

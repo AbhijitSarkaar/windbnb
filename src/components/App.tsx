@@ -25,6 +25,7 @@ const Container = styled.div(function (props: { overflow: string }) {
         position: 'relative',
         height: '100%',
         overflow: props.overflow,
+        fontFamily: 'Inconsolata',
     };
 });
 export default App;

@@ -10,8 +10,10 @@ const Home = (props) => {
     const { handleModal } = props;
     return (
         <HomeContainer>
-            <Brand></Brand>
-            <SearchBar handleModal={handleModal}></SearchBar>
+            <Header>
+                <Brand></Brand>
+                <SearchBar handleModal={handleModal}></SearchBar>
+            </Header>
             <SearchResultTitle>
                 <Text>Stays in Finland</Text>
                 <Count>12+ stays</Count>
@@ -49,11 +51,25 @@ const Home = (props) => {
 
 const HomeContainer = styled.div`
     padding: 22px 12px 0px 12px;
+    font-family: 'Inconsolata', monospace;
+`;
+
+const Header = styled.div`
+    display: flex;
+    flex-direction: column;
+    @media only screen and (min-width: 500px) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 `;
 
 const SearchResultTitle = styled.div`
     display: flex;
     justify-content: space-between;
+    @media only screen and (min-width: 500px) {
+        margin-top: 40px;
+    }
 `;
 const Text = styled.div`
     font-size: 18px;
@@ -71,6 +87,10 @@ const SearchResultsContainer = styled.div`
     flex-direction: column;
     gap: 30px;
     @media only screen and (min-width: 500px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media only screen and (min-width: 800px) {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
     }
@@ -122,6 +142,7 @@ const RoomTitle = styled.div`
     color: #333333;
     font-size: 14px;
     font-weight: 600;
+    font-family: 'Inconsolata', monospace;
 `;
 
 export default Home;

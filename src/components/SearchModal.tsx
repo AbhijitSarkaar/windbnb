@@ -88,6 +88,7 @@ const SearchModal = (props) => {
                 </Header>
                 <SearchAttributes>
                     <Location
+                        border={state.currentTab === 'location'}
                         onClick={() =>
                             dispatch({
                                 type: SET_CURRENT_TAB,
@@ -101,6 +102,7 @@ const SearchModal = (props) => {
                         </Value>
                     </Location>
                     <Guests
+                        border={state.currentTab === 'guests'}
                         onClick={() =>
                             dispatch({
                                 type: SET_CURRENT_TAB,
@@ -114,6 +116,12 @@ const SearchModal = (props) => {
                             {guestsCount !== 1 && 's'}
                         </Value>
                     </Guests>
+                    <SearchButtonContainerMobile>
+                        <SearchButton onClick={handleModal}>
+                            <FontAwesomeIcon icon={faSearch} />
+                            <SearchText>Search</SearchText>
+                        </SearchButton>
+                    </SearchButtonContainerMobile>
                 </SearchAttributes>
                 <SearchAttrValues>
                     {state.currentTab === 'location' && (
@@ -157,9 +165,9 @@ const SearchModal = (props) => {
                     )}
                 </SearchAttrValues>
                 <Footer>
-                    <SearchButton>
+                    <SearchButton onClick={handleModal}>
                         <FontAwesomeIcon icon={faSearch} />
-                        <SearchText onClick={handleModal}>Search</SearchText>
+                        <SearchText>Search</SearchText>
                     </SearchButton>
                 </Footer>
             </SearchModalContainerRel>
@@ -175,6 +183,9 @@ const SearchModalContainer = styled.div`
     box-sizing: border-box;
     padding: 12px;
     height: 80%;
+    @media only screen and (min-width: 700px) {
+        height: 60%;
+    }
 `;
 
 const SearchModalContainerRel = styled.div`
@@ -192,22 +203,40 @@ const Text = styled.div`
     font-size: 12px;
     line-height: 1;
 `;
-const Icon = styled.div``;
+const Icon = styled.div`
+    cursor: pointer;
+`;
 const SearchAttributes = styled.div`
-    border-radius: 16px;
     display: grid;
     grid-template-rows: repeat(2, 1fr);
     height: 115px;
     margin-top: 16px;
-    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+    > * {
+        border-radius: 16px;
+        box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+    @media only screen and (min-width: 700px) {
+        height: 57px;
+        grid-template-columns: 2fr 2fr 1fr;
+        align-items: center;
+        gap: 10px;
+    }
 `;
-const Location = styled.div`
-    border-bottom: 1px solid #f2f2f2;
-    padding: 12px 26px;
-`;
-const Guests = styled.div`
-    padding: 12px 26px;
-`;
+const Location = styled.div(function (props: { border: boolean }) {
+    const { border } = props;
+    return {
+        border: border ? '1px solid black' : 'none',
+        padding: '12px 26px',
+    };
+});
+const Guests = styled.div(function (props: { border: boolean }) {
+    const { border } = props;
+    return {
+        border: border ? '1px solid black' : 'none',
+        padding: '12px 26px',
+    };
+});
 
 const Title = styled.div`
     font-size: 9px;
@@ -238,6 +267,9 @@ const Footer = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+    @media only screen and (min-width: 700px) {
+        display: none;
+    }
 `;
 const SearchButton = styled.div`
     height: 48px;
@@ -251,12 +283,21 @@ const SearchButton = styled.div`
     box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
     color: white;
+    cursor: pointer;
 `;
 const SearchText = styled.div``;
 
 const LocationRow = styled.div`
     display: flex;
     gap: 10px;
+    cursor: pointer;
+`;
+
+const SearchButtonContainerMobile = styled.div`
+    box-shadow: none;
+    @media only screen and (max-width: 700px) {
+        display: none;
+    }
 `;
 
 export default SearchModal;
