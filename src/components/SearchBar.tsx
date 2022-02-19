@@ -43,6 +43,12 @@ const Search = styled.div`
     :last-child {
         border-right: none;
     }
+
+    @media only screen and (min-width: 500px) {
+        > * {
+            cursor: pointer;
+        }
+    }
 `;
 
 const Location = styled.div``;

@@ -70,6 +70,10 @@ const SearchResultsContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 30px;
+    @media only screen and (min-width: 500px) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
 `;
 const ResultItem = styled.div``;
 const RoomImage = styled.img`
