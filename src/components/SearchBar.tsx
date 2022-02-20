@@ -4,13 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBar = (props) => {
-    const { handleModal } = props;
+    const { handleModal, location, guests } = props;
 
     return (
         <SearchBarContainer data-testid="search-container">
             <Search onClick={handleModal}>
-                <Location data-testid="location">Add location </Location>
-                <Guests data-testid="guests">Add guests</Guests>
+                <Location data-testid="location" border={location.length}>
+                    {location ? location : 'Add location'}
+                </Location>
+                <Guests data-testid="guests" border={guests}>
+                    {guests
+                        ? `${guests} guest${guests !== 1 ? 's' : ''}`
+                        : 'Add guests'}
+                </Guests>
                 <SearchIcon data-testid="search-icon">
                     <FontAwesomeIcon icon={faSearch} />
                 </SearchIcon>
@@ -22,7 +28,7 @@ const SearchBar = (props) => {
 const SearchBarContainer = styled.div`
     padding: 40px 28px;
     @media only screen and (min-width: 500px) {
-        width: 20%;
+        width: 25%;
         padding: 0px 28px;
     }
 `;
@@ -59,8 +65,16 @@ const Search = styled.div`
     }
 `;
 
-const Location = styled.div``;
-const Guests = styled.div``;
+const Location = styled.div((props: { border: boolean }) => {
+    return {
+        color: props.border ? 'black' : '#bdbdbd',
+    };
+});
+const Guests = styled.div((props: { border: boolean }) => {
+    return {
+        color: props.border ? 'black' : '#bdbdbd',
+    };
+});
 const SearchIcon = styled.div`
     color: #eb5757;
 `;

@@ -7,12 +7,16 @@ import data from '../data/data';
 import styled from 'styled-components';
 
 const Home = (props) => {
-    const { handleModal } = props;
+    const { handleModal, location, guests } = props;
     return (
         <HomeContainer>
             <Header>
                 <Brand></Brand>
-                <SearchBar handleModal={handleModal}></SearchBar>
+                <SearchBar
+                    handleModal={handleModal}
+                    location={location}
+                    guests={guests}
+                ></SearchBar>
             </Header>
             <SearchResultTitle>
                 <Text>Stays in Finland</Text>

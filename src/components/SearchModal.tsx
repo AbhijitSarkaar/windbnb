@@ -45,21 +45,26 @@ const reducer = (state, action) => {
 };
 
 const SearchModal = (props) => {
-    const { handleModal } = props;
+    const { handleModal, handleLocationChange, handleGuestsChange } = props;
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const handleSubtract = (ageGroup: string) => {
+        let a_Count = state.adultsCount,
+            c_Count = state.childrenCount;
         if (ageGroup === 'adult') {
             dispatch({
                 type: SET_ADULTS_COUNT,
                 value: Math.max(0, state.adultsCount - 1),
             });
+            a_Count = Math.max(0, state.adultsCount - 1);
         } else if (ageGroup === 'children') {
             dispatch({
                 type: SET_CHILDREN_COUNT,
                 value: Math.max(0, state.childrenCount - 1),
             });
+            c_Count = Math.max(0, state.childrenCount - 1);
         }
+        handleGuestsChange(a_Count + c_Count);
     };
     const handleAdd = (ageGroup: string) => {
         if (ageGroup === 'adult') {
@@ -73,6 +78,7 @@ const SearchModal = (props) => {
                 value: state.childrenCount + 1,
             });
         }
+        handleGuestsChange(state.adultsCount + state.childrenCount + 1);
     };
 
     const guestsCount = state.adultsCount + state.childrenCount;
@@ -82,7 +88,12 @@ const SearchModal = (props) => {
             <SearchModalContainerRel>
                 <Header>
                     <Text>Edit your search</Text>
-                    <Icon>
+                    <Icon
+                        onClick={() => {
+                            handleLocationChange('');
+                            handleGuestsChange(0);
+                        }}
+                    >
                         <FontAwesomeIcon icon={faClose} onClick={handleModal} />
                     </Icon>
                 </Header>
@@ -117,7 +128,13 @@ const SearchModal = (props) => {
                         </Value>
                     </Guests>
                     <SearchButtonContainerMobile>
-                        <SearchButton onClick={handleModal}>
+                        <SearchButton
+                            onClick={() => {
+                                handleModal();
+                                handleLocationChange(state.location);
+                                handleGuestsChange(guestsCount);
+                            }}
+                        >
                             <FontAwesomeIcon icon={faSearch} />
                             <SearchText>Search</SearchText>
                         </SearchButton>
@@ -129,12 +146,13 @@ const SearchModal = (props) => {
                             {locations.map((location) => (
                                 <LocationRow
                                     key={location}
-                                    onClick={() =>
+                                    onClick={() => {
                                         dispatch({
                                             type: SET_LOCATION,
                                             value: location,
-                                        })
-                                    }
+                                        });
+                                        handleLocationChange(location);
+                                    }}
                                 >
                                     <FontAwesomeIcon icon={faLocationDot} />
                                     {location}
@@ -165,7 +183,13 @@ const SearchModal = (props) => {
                     )}
                 </SearchAttrValues>
                 <Footer>
-                    <SearchButton onClick={handleModal}>
+                    <SearchButton
+                        onClick={() => {
+                            handleModal();
+                            handleLocationChange(state.location);
+                            handleGuestsChange(guestsCount);
+                        }}
+                    >
                         <FontAwesomeIcon icon={faSearch} />
                         <SearchText>Search</SearchText>
                     </SearchButton>

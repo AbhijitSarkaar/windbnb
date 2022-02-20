@@ -5,6 +5,8 @@ import SearchModal from './SearchModal';
 
 const App = () => {
     const [modal, setModal] = useState(false);
+    const [location, setLocation] = useState('');
+    const [guests, setGuests] = useState(0);
     const handleModal = (status: boolean) => {
         setModal(status);
     };
@@ -12,10 +14,16 @@ const App = () => {
         <Container data-testid="app" overflow={modal ? 'hidden' : 'visible'}>
             {modal && (
                 <SearchModal
+                    handleLocationChange={(value) => setLocation(value)}
+                    handleGuestsChange={(value) => setGuests(value)}
                     handleModal={() => handleModal(false)}
                 ></SearchModal>
             )}
-            <Home handleModal={() => handleModal(true)}></Home>
+            <Home
+                handleModal={() => handleModal(true)}
+                location={location}
+                guests={guests}
+            ></Home>
         </Container>
     );
 };
