@@ -26,7 +26,10 @@ const Home = (props) => {
                 {data.map((item) => {
                     return (
                         <ResultItem key={item.title}>
-                            <RoomImage src={item.photo}></RoomImage>
+                            {/* <RoomImage src={item.photo}></RoomImage> */}
+                            <ShimmerContainer>
+                                <Shimmer />
+                            </ShimmerContainer>
                             <RoomProperties>
                                 {item.superHost && (
                                     <SuperHost>SUPER HOST</SuperHost>
@@ -147,6 +150,40 @@ const RoomTitle = styled.div`
     font-size: 14px;
     font-weight: 600;
     font-family: 'Inconsolata', monospace;
+`;
+
+const ShimmerContainer = styled.div`
+    background: lightgray;
+    border-radius: 24px;
+`;
+
+const Shimmer = styled.div`
+    height: 240px;
+    background: #f6f7f8;
+    background-image: linear-gradient(
+        to right,
+        #f6f7f8 0%,
+        #edeef1 20%,
+        #f6f7f8 40%,
+        #f6f7f8 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 800px 240px;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeholderShimmer;
+    animation-timing-function: linear;
+
+    @keyframes placeholderShimmer {
+        0% {
+            background-position: -468px 0;
+        }
+
+        100% {
+            background-position: 468px 0;
+        }
+    }
 `;
 
 export default Home;
