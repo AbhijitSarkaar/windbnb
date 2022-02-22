@@ -26,10 +26,18 @@ const SearchBar = (props) => {
 };
 
 const SearchBarContainer = styled.div`
-    padding: 40px 28px;
-    @media only screen and (min-width: 500px) {
-        width: 25%;
-        padding: 0px 28px;
+    padding: 40px 10px;
+    @media only screen and (min-width: 481px) {
+        width: 50%;
+        padding: 0;
+    }
+    @media only screen and (min-width: 769px) {
+        width: 35%;
+        padding: 0;
+    }
+    @media only screen and (min-width: 1025px) {
+        width: 30%;
+        padding: 0;
     }
 `;
 

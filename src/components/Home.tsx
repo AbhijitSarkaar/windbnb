@@ -131,7 +131,7 @@ const HomeContainer = styled.div`
 const Header = styled.div`
     display: flex;
     flex-direction: column;
-    @media only screen and (min-width: 500px) {
+    @media only screen and (min-width: 481px) {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
@@ -141,7 +141,7 @@ const Header = styled.div`
 const SearchResultTitle = styled.div`
     display: flex;
     justify-content: space-between;
-    @media only screen and (min-width: 500px) {
+    @media only screen and (min-width: 481px) {
         margin-top: 40px;
     }
 `;
@@ -160,11 +160,11 @@ const SearchResultsContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 30px;
-    @media only screen and (min-width: 500px) {
+    @media only screen and (min-width: 481px) {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
-    @media only screen and (min-width: 800px) {
+    @media only screen and (min-width: 769px) {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
     }
