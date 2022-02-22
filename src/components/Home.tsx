@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Brand from './Brand';
 import SearchBar from './SearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,15 @@ import styled from 'styled-components';
 
 const Home = (props) => {
     const { handleModal, location, guests } = props;
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [location, guests]);
+
     return (
         <HomeContainer>
             <Header>
@@ -19,35 +28,93 @@ const Home = (props) => {
                 ></SearchBar>
             </Header>
             <SearchResultTitle>
-                <Text>Stays in Finland</Text>
-                <Count>12+ stays</Count>
+                <Text>
+                    {loading ? (
+                        <ShimmerContainer height={'20px'} width={'150px'}>
+                            <Shimmer />
+                        </ShimmerContainer>
+                    ) : (
+                        'Stays in Finland'
+                    )}
+                </Text>
+                <Count>
+                    {loading ? (
+                        <ShimmerContainer height={'20px'} width={'50px'}>
+                            <Shimmer />
+                        </ShimmerContainer>
+                    ) : (
+                        '12+ stays'
+                    )}
+                </Count>
             </SearchResultTitle>
             <SearchResultsContainer>
                 {data.map((item) => {
                     return (
                         <ResultItem key={item.title}>
-                            {/* <RoomImage src={item.photo}></RoomImage> */}
-                            <ShimmerContainer>
-                                <Shimmer />
-                            </ShimmerContainer>
+                            {loading ? (
+                                <ShimmerContainer height={'240px'}>
+                                    <Shimmer />
+                                </ShimmerContainer>
+                            ) : (
+                                <RoomImage src={item.photo}></RoomImage>
+                            )}
                             <RoomProperties>
-                                {item.superHost && (
-                                    <SuperHost>SUPER HOST</SuperHost>
+                                {loading ? (
+                                    <ShimmerContainer
+                                        height={'20px'}
+                                        width={'120px'}
+                                    >
+                                        <Shimmer />
+                                    </ShimmerContainer>
+                                ) : (
+                                    <>
+                                        {item.superHost && (
+                                            <SuperHost>SUPER HOST</SuperHost>
+                                        )}
+                                        <RoomDesc>
+                                            {item.type}
+                                            {item.beds &&
+                                                `. ${item.beds} bed${
+                                                    item.beds !== 1 && 's'
+                                                }`}
+                                        </RoomDesc>
+                                    </>
                                 )}
-                                <RoomDesc>
-                                    {item.type}
-                                    {item.beds && `. ${item.beds} bed`}
-                                </RoomDesc>
+
                                 <Rating>
-                                    <FontAwesomeIcon
-                                        icon={faStar}
-                                        color={'#EB5757'}
-                                        size={'sm'}
-                                    />
-                                    <RatingText>{item.rating}</RatingText>
+                                    {loading ? (
+                                        <ShimmerContainer
+                                            height={'20px'}
+                                            width={'60px'}
+                                        >
+                                            <Shimmer />
+                                        </ShimmerContainer>
+                                    ) : (
+                                        <>
+                                            <FontAwesomeIcon
+                                                icon={faStar}
+                                                color={'#EB5757'}
+                                                size={'sm'}
+                                            />
+                                            <RatingText>
+                                                {item.rating}
+                                            </RatingText>
+                                        </>
+                                    )}
                                 </Rating>
                             </RoomProperties>
-                            <RoomTitle>{item.title}</RoomTitle>
+                            <RoomTitle>
+                                {loading ? (
+                                    <ShimmerContainer
+                                        height={'20px'}
+                                        width={'250px'}
+                                    >
+                                        <Shimmer />
+                                    </ShimmerContainer>
+                                ) : (
+                                    item.title
+                                )}
+                            </RoomTitle>
                         </ResultItem>
                     );
                 })}
@@ -152,36 +219,41 @@ const RoomTitle = styled.div`
     font-family: 'Inconsolata', monospace;
 `;
 
-const ShimmerContainer = styled.div`
-    background: lightgray;
-    border-radius: 24px;
-`;
+const ShimmerContainer = styled.div(function (props: {
+    height: string;
+    width?: string;
+}) {
+    const { height, width } = props;
+    return {
+        borderRadius: '24px',
+        height,
+        width: width ? width : '100%',
+    };
+});
 
 const Shimmer = styled.div`
-    height: 240px;
+    height: 100%;
     background: #f6f7f8;
     background-image: linear-gradient(
         to right,
         #f6f7f8 0%,
         #edeef1 20%,
-        #f6f7f8 40%,
-        #f6f7f8 100%
+        #f6f7f8 40%
     );
     background-repeat: no-repeat;
-    background-size: 800px 240px;
+    background-size: 100% 100%;
     animation-duration: 1s;
-    animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-name: placeholderShimmer;
     animation-timing-function: linear;
 
     @keyframes placeholderShimmer {
         0% {
-            background-position: -468px 0;
+            background-position: -400px;
         }
 
         100% {
-            background-position: 468px 0;
+            background-position: 400px 0;
         }
     }
 `;

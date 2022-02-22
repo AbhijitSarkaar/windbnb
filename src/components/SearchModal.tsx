@@ -49,22 +49,17 @@ const SearchModal = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const handleSubtract = (ageGroup: string) => {
-        let a_Count = state.adultsCount,
-            c_Count = state.childrenCount;
         if (ageGroup === 'adult') {
             dispatch({
                 type: SET_ADULTS_COUNT,
                 value: Math.max(0, state.adultsCount - 1),
             });
-            a_Count = Math.max(0, state.adultsCount - 1);
         } else if (ageGroup === 'children') {
             dispatch({
                 type: SET_CHILDREN_COUNT,
                 value: Math.max(0, state.childrenCount - 1),
             });
-            c_Count = Math.max(0, state.childrenCount - 1);
         }
-        handleGuestsChange(a_Count + c_Count);
     };
     const handleAdd = (ageGroup: string) => {
         if (ageGroup === 'adult') {
@@ -78,7 +73,6 @@ const SearchModal = (props) => {
                 value: state.childrenCount + 1,
             });
         }
-        handleGuestsChange(state.adultsCount + state.childrenCount + 1);
     };
 
     const guestsCount = state.adultsCount + state.childrenCount;
@@ -151,7 +145,6 @@ const SearchModal = (props) => {
                                             type: SET_LOCATION,
                                             value: location,
                                         });
-                                        handleLocationChange(location);
                                     }}
                                 >
                                     <FontAwesomeIcon icon={faLocationDot} />
@@ -201,7 +194,7 @@ const SearchModal = (props) => {
 
 const SearchModalContainer = styled.div`
     position: absolute;
-    width: 99%;
+    width: 100%;
     background: white;
     top: 0;
     box-sizing: border-box;
