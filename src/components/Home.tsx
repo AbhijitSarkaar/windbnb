@@ -3,6 +3,8 @@ import Brand from './Brand';
 import SearchBar from './SearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import image from '../../assets/image-small.png';
+
 import data from '../data/data';
 import styled from 'styled-components';
 
@@ -14,7 +16,7 @@ const Home = (props) => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-        }, 2000);
+        }, 500);
     }, [location, guests]);
 
     return (
@@ -56,7 +58,8 @@ const Home = (props) => {
                                     <Shimmer />
                                 </ShimmerContainer>
                             ) : (
-                                <RoomImage src={item.photo}></RoomImage>
+                                // <RoomImage src={item.photo}></RoomImage>
+                                <RoomImage src={image}></RoomImage>
                             )}
                             <RoomProperties>
                                 {loading ? (
