@@ -5,6 +5,9 @@ const BrotliPlugin = require('brotli-webpack-plugin');
 
 module.exports = {
     entry: "./src/index.js",
+    // entry: {
+    //     firstModule: "./src/first-module.js",
+    // },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, '../dist'),
@@ -44,7 +47,9 @@ module.exports = {
     ],
     optimization: {
         minimize: true,
-        minimizer: [new UglifyJsPlugin()],
+        minimizer: [new UglifyJsPlugin({
+            extractComments: true,
+        })],
     }, 
     resolve: {
         extensions: ['...', '.tsx', '.ts']
